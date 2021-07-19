@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/modules.xml
+/.idea.Intensive-Day-1.iml
+/projectSettingsUpdater.xml
+# Datasource local storage ignored files
+/../../../../../../:\GitHubCloned\Intensive-Day-1\.idea\.idea.Intensive-Day-1\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
