@@ -27,8 +27,7 @@ public class Enemy : MonoBehaviour
     public void DieFromPlayer()
     {
         //добавить очко в счетчик
-        GameObject[] tmp = GameObject.FindGameObjectsWithTag("Player");
-        tmp[0].GetComponent<Score>().AddScore();
+
         ///////
         
         Destroy(this.gameObject);
