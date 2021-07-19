@@ -5,7 +5,6 @@ using UnityEngine.SocialPlatforms;
 
 public class EnemyController : MonoBehaviour
 {
-    // Start is called before the first frame update
     public float timeToSpawn = 5f;
     public bool spawn = true;
     
@@ -19,12 +18,6 @@ public class EnemyController : MonoBehaviour
     private float timer = 0f;
     public GameObject enemyPrefab;
     public Transform spawnPoint;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
