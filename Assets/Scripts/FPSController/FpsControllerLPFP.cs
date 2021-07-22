@@ -11,7 +11,14 @@ namespace FPSControllerLPFP
     public class FpsControllerLPFP : MonoBehaviour
     {
 #pragma warning disable 649
-		[Header("Arms")]
+        [Header("UI")]
+        public GameObject winUI;
+        public GameObject loseUI;
+
+        [Tooltip("Player Health amount")]
+        public int playerHealth = 100;
+
+        [Header("Arms")]
         [Tooltip("The transform component that holds the gun camera."), SerializeField]
         private Transform[] arms;
 
@@ -148,6 +155,26 @@ namespace FPSControllerLPFP
         /// Moves the camera to the character, processes jumping and plays sounds every frame.
         private void Update()
         {
+            if(playerHealth <= 0)
+            {
+                loseUI.SetActive(true);
+                foreach(var arm in arms)
+                {
+                    arm.gameObject.GetComponentInChildren<AutomaticGunScriptLPFP>().enabled = false;
+                }
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+
+                GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
+
+                foreach(var spawner in spawners)
+                {
+                    spawner.GetComponent<ZombieSpawner>().canSummon = false;
+                }
+
+                Destroy(this);
+            }
+
             foreach (var arm in arms)
             {
                 arm.position = transform.position + transform.TransformVector(armPosition[arm.GetSiblingIndex()]);

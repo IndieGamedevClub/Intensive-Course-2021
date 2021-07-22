@@ -12,6 +12,8 @@ public class BulletScript : MonoBehaviour {
 	public float minDestroyTime;
 	[Tooltip("Maximum time after impact that the bullet is destroyed")]
 	public float maxDestroyTime;
+	[Tooltip("Damage of bullet")]
+	public int bulletDamage;
 
 	[Header("Impact Effect Prefabs")]
 	public Transform [] metalImpactPrefabs;
@@ -49,11 +51,15 @@ public class BulletScript : MonoBehaviour {
 		}
 
 		//If bullet collides with "Target" tag
-		if (collision.transform.tag == "Target") 
+		if (collision.transform.tag == "Enemy") 
 		{
 			//Toggle "isHit" on target object
 			collision.transform.gameObject.GetComponent
-				<TargetScript>().isHit = true;
+				<ZombieController>().isHit = true;
+
+			collision.transform.gameObject.GetComponent
+				<ZombieController>().recivedDamage = bulletDamage;
+
 			//Destroy bullet object
 			Destroy(gameObject);
 		}

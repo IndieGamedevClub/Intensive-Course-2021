@@ -17,6 +17,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 	[Header("Weapon Settings")]
 	[Tooltip("How fast the weapon fires, higher value means faster rate of fire.")]
 	public float fireRate;
+	public int damage;
 
 	//Check if reloading
 	private bool isReloading;
@@ -156,6 +157,9 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 					bulletPrefab,
 					bulletSpawnPoint.transform.position,
 					bulletSpawnPoint.transform.rotation);
+
+				//Add damage
+				bullet.GetComponent<BulletScript>().bulletDamage = damage;
 
 				//Add velocity to the bullet
 				bullet.GetComponent<Rigidbody>().velocity = 
