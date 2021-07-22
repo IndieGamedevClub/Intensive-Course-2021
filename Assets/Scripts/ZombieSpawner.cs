@@ -6,7 +6,6 @@ public class ZombieSpawner : MonoBehaviour
 {
     public GameObject[] zombieType;
     public float timeForNextZombie;
-    public bool canSummon = true;
 
     void Start()
     {
@@ -15,9 +14,6 @@ public class ZombieSpawner : MonoBehaviour
 
     IEnumerator Summon()
     {
-        if (!canSummon)
-            yield return 0;
-
         int i = Mathf.RoundToInt(Random.Range(0, zombieType.Length-1));
         Instantiate(zombieType[i], this.transform.position, Quaternion.identity);
 

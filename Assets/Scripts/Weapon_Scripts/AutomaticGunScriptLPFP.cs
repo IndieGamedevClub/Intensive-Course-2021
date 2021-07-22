@@ -118,7 +118,6 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			currentWeaponText.text = storedWeaponName.ToString ();
 			//Toggle bool
 			outOfAmmo = false;
-			//anim.SetBool ("Out Of Ammo", false);
 		}
 			
 		//AUtomatic fire

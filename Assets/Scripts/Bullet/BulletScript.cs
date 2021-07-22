@@ -17,6 +17,7 @@ public class BulletScript : MonoBehaviour {
 
 	[Header("Impact Effect Prefabs")]
 	public Transform [] metalImpactPrefabs;
+	public Transform[] bloodImpactPrefabs;
 
 	private void Start () 
 	{
@@ -59,6 +60,10 @@ public class BulletScript : MonoBehaviour {
 
 			collision.transform.gameObject.GetComponent
 				<ZombieController>().recivedDamage = bulletDamage;
+
+			Instantiate(bloodImpactPrefabs[Random.Range
+				(0, metalImpactPrefabs.Length)], transform.position,
+				Quaternion.LookRotation(collision.contacts[0].normal));
 
 			//Destroy bullet object
 			Destroy(gameObject);

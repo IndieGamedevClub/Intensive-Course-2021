@@ -14,6 +14,8 @@ namespace FPSControllerLPFP
         [Header("UI")]
         public GameObject winUI;
         public GameObject loseUI;
+        [HideInInspector]
+        public bool win = false;
 
         [Tooltip("Player Health amount")]
         public int playerHealth = 100;
@@ -169,7 +171,46 @@ namespace FPSControllerLPFP
 
                 foreach(var spawner in spawners)
                 {
-                    spawner.GetComponent<ZombieSpawner>().canSummon = false;
+                    spawner.SetActive(false);
+                }
+
+                Destroy(this);
+            }
+
+            if(win)
+            {
+                winUI.SetActive(true);
+
+                foreach (var arm in arms)
+                {
+                    if(arm.gameObject.GetComponentInChildren<AutomaticGunScriptLPFP>())
+                    {
+                        arm.gameObject.GetComponentInChildren<AutomaticGunScriptLPFP>().enabled = false;
+                    }
+                    else
+                    {
+                        arm.gameObject.GetComponentInChildren<PumpShotgunScriptLPFP>().enabled = false;
+                    }    
+                }
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+
+                GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
+
+                foreach (var spawner in spawners)
+                {
+                    spawner.SetActive(false);
+                }
+
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+                foreach (var enemy in enemies)
+                {
+                    if (!enemy.GetComponent<ZombieController>().dead)
+                    {
+                        enemy.GetComponent<ZombieController>().dead = true;
+                        StartCoroutine(enemy.GetComponent<ZombieController>().Death());
+                    }
                 }
 
                 Destroy(this);

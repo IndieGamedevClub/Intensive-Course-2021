@@ -8,7 +8,8 @@ public class ZombieController : MonoBehaviour
     private NavMeshAgent enemy;
     private Transform player;
     private bool attacking = false;
-    private bool dead = false;
+    [HideInInspector]
+    public bool dead = false;
     public Animator animator;
 
     public bool isHit = false;
@@ -39,7 +40,7 @@ public class ZombieController : MonoBehaviour
            
         if(isHit && !dead)
         {
-            if(zombieHealth > 0)
+            if (zombieHealth > 0)
             {
                 StartCoroutine(GetHit(recivedDamage));
             }
@@ -64,12 +65,14 @@ public class ZombieController : MonoBehaviour
         animator.SetTrigger("Hit");
         zombieHealth -= damage;
 
+        isHit = false;
+
         foreach (var box in hurtBoxes)
         {
             box.SetActive(false);
         }
 
-        isHit = false;
+        
         yield return new WaitForSeconds(0.5f);
         //when anim ended
         if(!isHit)
@@ -103,12 +106,13 @@ public class ZombieController : MonoBehaviour
     {
         enemy.enabled = false;
         animator.SetTrigger("Death");
+        player.gameObject.GetComponent<ScoreController>().score++;
 
         yield return new WaitForSeconds(10f);
         StartCoroutine(Hide());
     }
 
-    IEnumerator Hide()
+    public IEnumerator Hide()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y-0.005f, transform.position.z);
         

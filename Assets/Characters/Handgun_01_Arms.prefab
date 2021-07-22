@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Color: {r: 0.5764706, g: 0.5764706, b: 0.5764706, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11110,28 +11110,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Pistol
-  fireRate: 0.2
-  ammo: 10
+  fireRate: 2
+  damage: 5
+  ammo: 20
   bulletForce: 400
   enableMuzzleflash: 1
-  muzzleParticles: {fileID: 0}
+  muzzleParticles: {fileID: 1748434971154949967}
   enableSparks: 1
-  sparkParticles: {fileID: 0}
+  sparkParticles: {fileID: 1747428926834924973}
   minSparkEmission: 1
   maxSparkEmission: 7
-  muzzleflashLight: {fileID: 0}
+  muzzleflashLight: {fileID: 1946551685234936947}
   lightDuration: 0.02
-  mainAudioSource: {fileID: 0}
-  shootAudioSource: {fileID: 0}
-  currentWeaponText: {fileID: 0}
-  currentAmmoText: {fileID: 0}
-  totalAmmoText: {fileID: 0}
-  bulletPrefab: {fileID: 0}
-  casingPrefab: {fileID: 0}
-  casingSpawnPoint: {fileID: 0}
-  bulletSpawnPoint: {fileID: 0}
-  shootSound: {fileID: 0}
-  reloadSoundOutOfAmmo: {fileID: 0}
+  mainAudioSource: {fileID: 1992841434276603297}
+  shootAudioSource: {fileID: 1992841434276603297}
+  currentWeaponText: {fileID: 1951316369119885403}
+  currentAmmoText: {fileID: 1951411987937636373}
+  totalAmmoText: {fileID: 1951682293282738875}
+  bulletPrefab: {fileID: 4879702113200764, guid: 5953171a59c27394e9ad5cbb564affa8, type: 3}
+  casingPrefab: {fileID: 4924048156253418, guid: b1995a53a949fac4db5722fc1df9efe4, type: 3}
+  casingSpawnPoint: {fileID: 1914837923183910101}
+  bulletSpawnPoint: {fileID: 1913110027618202307}
+  shootSound: {fileID: 8300000, guid: 38b450e2adcb6f542acc8c1d423bd8dc, type: 3}
+  reloadSoundOutOfAmmo: {fileID: 8300000, guid: fee3a21f251a4914cabce25b13e7d2a8, type: 3}
 --- !u!1 &1911059162177880735
 GameObject:
   m_ObjectHideFlags: 0
@@ -11404,7 +11405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Color: {r: 0.5764706, g: 0.5764706, b: 0.5764706, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11605,7 +11606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Color: {r: 0.5764706, g: 0.5764706, b: 0.5764706, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11800,7 +11801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Color: {r: 0.5764706, g: 0.5764706, b: 0.5764706, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12022,7 +12023,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911602561308865247}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: -0.9033, z: 0.3602}
+  m_LocalPosition: {x: -0.1, y: -0.9033, z: 0.3602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1914955889970645835}
@@ -12291,11 +12292,11 @@ GameObject:
   - component: {fileID: 1913298633828307375}
   m_Layer: 0
   m_Name: Handgun_01_Arms
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1913298633828307375
 Transform:
   m_ObjectHideFlags: 0
@@ -12303,7 +12304,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911687120621045239}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
