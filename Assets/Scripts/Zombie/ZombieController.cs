@@ -5,22 +5,27 @@ using UnityEngine;
 using UnityEngine.AI;
 public class ZombieController : MonoBehaviour
 {
-    private NavMeshAgent enemy;
-    private Transform player;
-    private bool attacking = false;
+    private NavMeshAgent enemy; //Агент Искусственного Интеллекта
+    private Transform player; //Игрок
+    private bool attacking = false; //Зомби атакует?
+
     [HideInInspector]
-    public bool dead = false;
+    public bool dead = false; //Зомби умер?
+
     public Animator animator;
 
-    public bool isHit = false;
-    public int recivedDamage;
-    public int zombieHealth = 100;
-    public int zombieDamage = 10;
+    public bool isHit = false; //Зомби получил урон?
 
-    public GameObject[] hurtBoxes;
+    public int recivedDamage; //К-во полученного урона
+
+    public int zombieHealth = 100; //Здоровье зомби
+    public int zombieDamage = 10; //Урон зомби за удар
+
+    public GameObject[] hurtBoxes; //Вспомогательные "руки" зомби
 
     void Start()
     {
+        //Нахоидм на сцене игрока и получаем Агента
         player = GameObject.FindGameObjectWithTag("Player").transform;
         enemy = gameObject.GetComponent<NavMeshAgent>();
     }
@@ -28,61 +33,68 @@ public class ZombieController : MonoBehaviour
     
     void Update()
     {
-        if(enemy.enabled)
+        if(enemy.enabled) //Если зомби активен, то ищем игрока на карте
             enemy.SetDestination(player.position);
 
-        Vector3 direction = (player.position - transform.position);
-        if (enemy.enabled && Vector3.Distance(player.position, transform.position)-0.7 <= enemy.stoppingDistance && !dead)
-        {
-            if(!attacking)
-                StartCoroutine(Attack());
-        }
-           
-        if(isHit && !dead)
+        //Получил урон
+        if (isHit && !dead)
         {
             if (zombieHealth > 0)
             {
                 StartCoroutine(GetHit(recivedDamage));
             }
-            else
+            else//если здоровье кончилось, то зомби умер
             {
                 dead = true;
                 StartCoroutine(Death());
             }
         }
-        
-        if(dead)
+
+        if (zombieHealth <= 0 && enemy.enabled)//если здоровье кончилось, то зомби умер
         {
+            dead = true;
+            StartCoroutine(Death());
+        }
+
+        if (dead)
+        {
+            //Отключаем некоторые компоненты зомби
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            enemy.enabled = false;
             gameObject.GetComponent<Rigidbody>().useGravity = false;
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        }
+
+        //Атакуем игрока, если зомби подошел достаточно близко
+        if (enemy.enabled && Vector3.Distance(player.position, transform.position) - 0.7 <= enemy.stoppingDistance && !dead)
+        {
+            if (!attacking)
+                StartCoroutine(Attack());
         }
     }
     public IEnumerator GetHit(int damage)
     {
-        enemy.enabled = false;
-        //play hitted anim
+        enemy.enabled = false; //отключаем врага, чтобы он не ходил, при получении урона некоторое время
+        
+        //Проигрываем анимацию получения урона
         animator.SetTrigger("Hit");
         zombieHealth -= damage;
 
         isHit = false;
-
-        foreach (var box in hurtBoxes)
+        foreach (var box in hurtBoxes) //отключаем "руки" зомби
         {
             box.SetActive(false);
         }
 
         
-        yield return new WaitForSeconds(0.5f);
-        //when anim ended
-        if(!isHit)
-            enemy.enabled = true;
+        yield return new WaitForSeconds(0.5f); //ждем конца анимации
+        if(!isHit && !dead)
+            enemy.enabled = true; 
     }
 
     public IEnumerator Attack()
     {
-        //play attack anim
-        //enable hurtboxes
+        //Включаем анимацию удара и включаем "руки"
         attacking = true;
         animator.SetTrigger("Attack");
         foreach (var box in hurtBoxes)
@@ -90,10 +102,12 @@ public class ZombieController : MonoBehaviour
             box.SetActive(true);
             box.GetComponent<HurtBox>().damage = zombieDamage;
         }
-        enemy.enabled = false;
+
+        enemy.enabled = false; //отключаем передвижение врага
 
         yield return new WaitForSeconds(2f);
-        //when anim ended
+
+        //отключаем "руки"
         foreach (var box in hurtBoxes)
         {
             box.SetActive(false);
@@ -104,26 +118,31 @@ public class ZombieController : MonoBehaviour
 
     public IEnumerator Death()
     {
+        //Отключаем передвижение и включаем анимацию смерти
         enemy.enabled = false;
         animator.SetTrigger("Death");
+
+        //добавляем в счетчик убитых врагов
         player.gameObject.GetComponent<ScoreController>().score++;
 
-        yield return new WaitForSeconds(10f);
-        StartCoroutine(Hide());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(Hide()); //прячем тело врага, чтобы оно не нагружало ПК
     }
 
     public IEnumerator Hide()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y-0.005f, transform.position.z);
+        //медленно прячем тело под "пол"
+        transform.position = new Vector3(transform.position.x, transform.position.y-0.005f, transform.position.z); 
         
         yield return new WaitForSeconds(0.01f);
-        if (transform.position.y > -3f)
+
+        if (transform.position.y > -3f) //если тело еще не спряталось, то снова прячем его
         {
             StartCoroutine(Hide());
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); //иначе - уничтожаем объект
         }
     }
 }

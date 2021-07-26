@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 9113489387754631005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8787410373876474117}
   m_Father: {fileID: 0}
@@ -178,7 +178,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 9113489387754631005}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 0.5
   m_Speed: 1
   m_Acceleration: 10
   avoidancePriority: 40
@@ -222,7 +222,7 @@ MonoBehaviour:
   isHit: 0
   recivedDamage: 0
   zombieHealth: 75
-  zombieDamage: 5
+  zombieDamage: 10
   hurtBoxes:
   - {fileID: 152859737}
   - {fileID: 1263802801}

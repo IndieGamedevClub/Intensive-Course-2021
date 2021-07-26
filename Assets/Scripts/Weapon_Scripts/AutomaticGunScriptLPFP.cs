@@ -4,42 +4,35 @@ using UnityEngine.UI;
 
 public class AutomaticGunScriptLPFP : MonoBehaviour {
 
-	//Animator component attached to weapon
+	//Animator прицепленный к оружию
 	Animator anim;
 
-	[Header("UI Weapon Name")]
-	[Tooltip("Name of the current weapon, shown in the game UI.")]
+	[Header("UI Имя оружия")]
 	public string weaponName;
 	private string storedWeaponName;
 
-	//Used for fire rate
 	private float lastFired;
-	[Header("Weapon Settings")]
-	[Tooltip("How fast the weapon fires, higher value means faster rate of fire.")]
+	[Header("Настройки оружия")]
 	public float fireRate;
 	public int damage;
 
-	//Check if reloading
+	//Мы перезаряжаемся?
 	private bool isReloading;
-	//Check if running
+	//Мы бежим?
 	private bool isRunning;
-	//Check if walking
-	private bool isWalking;
 
-	//How much ammo is currently left
+	//Сколько патронов осталось
 	private int currentAmmo;
-	//Totalt amount of ammo
-	[Tooltip("How much ammo the weapon should have.")]
+	//Размер обоймы
+	[Tooltip("Как много пуль есть в обойме")]
 	public int ammo;
-	//Check if out of ammo
+	//Мы без пуль?
 	private bool outOfAmmo;
 
-	[Header("Bullet Settings")]
-	//Bullet
-	[Tooltip("How much force is applied to the bullet when shooting.")]
+	[Header("Настройки пуль")]
 	public float bulletForce = 400.0f;
 
-	[Header("Muzzleflash Settings")]
+	[Header("Настройки частиц выстрела")]
 	public bool enableMuzzleflash = true;
 	public ParticleSystem muzzleParticles;
 	public bool enableSparks = true;
@@ -47,131 +40,124 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 	public int minSparkEmission = 1;
 	public int maxSparkEmission = 7;
 
-	[Header("Muzzleflash Light Settings")]
+	[Header("Настройка света частиц выстрела")]
 	public Light muzzleflashLight;
 	public float lightDuration = 0.02f;
 
 	[Header("Audio Source")]
-	//Main audio source
+	//Главный Audio Source
 	public AudioSource mainAudioSource;
-	//Audio source used for shoot sound
+	//Audio source для выстрела
 	public AudioSource shootAudioSource;
 
-	[Header("UI Components")]
+	[Header("UI Компоненты")]
 	public Text currentWeaponText;
 	public Text currentAmmoText;
 	public Text totalAmmoText;
 	
-	[Header("Prefabs & Spawn Points")]
+	[Header("Префабы и  Вспомогательные точки спавна")]
 	public Transform bulletPrefab;
 	public Transform casingPrefab;
-	//Casing spawn point array
+	//Точка спавна гильз
 	public Transform casingSpawnPoint;
-	//Bullet prefab spawn from this point
+	//Точка спавна пуль
 	public Transform bulletSpawnPoint;
 	
-	[Header("Audio")]
+	[Header("Аудио")]
 	public AudioClip shootSound;
 	public AudioClip reloadSoundOutOfAmmo;
 
 	private void Start () {
-		
-		//Set the animator component
-		anim = GetComponent<Animator>();
-		//Set current ammo to total ammo value
-		currentAmmo = ammo;
+
+		anim = GetComponent<Animator>(); //получаем компонент Animator
+		currentAmmo = ammo; //ставим к-во начальной обоймы
 
 		muzzleflashLight.enabled = false;
 		
-		//Save the weapon name
+		//Сохраняем название оружия
 		storedWeaponName = weaponName;
 		currentWeaponText.text = weaponName;
 		
-		//Set total ammo text from total ammo int
+		//Переводим в текст к-во патрон
 		totalAmmoText.text = ammo.ToString();
 
-		//Set the shoot sound to audio source
+		//Задаем звук стрельбы
 		shootAudioSource.clip = shootSound;
 	}
 
 	private void Update () {
-		//Set current ammo text from ammo int
+		//Переводим в текст к-во патрон
 		currentAmmoText.text = currentAmmo.ToString ();
 
-		//Continosuly check which animation 
-		//is currently playing
-		AnimationCheck ();
+		AnimationCheck (); //Проверка анимаций, чтобы они проигрывались верно
 
-		//If out of ammo
+		//Если закончились патроны
 		if (currentAmmo == 0) 
 		{
-			//Show out of ammo text
-			currentWeaponText.text = "OUT OF AMMO";
-			//Toggle bool
+			//Показываем текст
+			currentWeaponText.text = "ПАТРОНЫ КОНЧИЛИСЬ";
+
 			outOfAmmo = true;
-			//Auto reload if true
+			//Делаем авто-перезарядку
 			StartCoroutine(AutoReload());
 		} 
 		else 
 		{
-			//When ammo is full, show weapon name again
+			//Если патроны есть, то отображаем название оружия
 			currentWeaponText.text = storedWeaponName.ToString ();
-			//Toggle bool
+
 			outOfAmmo = false;
 		}
 			
-		//AUtomatic fire
-		//Left click hold 
+		//Автоматическая стрельба на левую кнопку мыши
 		if (Input.GetMouseButton (0) && !outOfAmmo && !isReloading && !isRunning) 
 		{
-			//Shoot automatic
 			if (Time.time - lastFired > 1 / fireRate) 
 			{
 				lastFired = Time.time;
 
-				//Remove 1 bullet from ammo
+				//Убираем 1 патрон из обоймы
 				currentAmmo -= 1;
 
 				shootAudioSource.clip = shootSound;
 				shootAudioSource.Play ();
 				
 				anim.Play ("Fire", 0, 0f);
-				//If random muzzle is false
-				//Only emit if random value is 1
 				
 				if (enableSparks == true) 
 				{
-					//Emit random amount of spark particles
+					//Создаем случайную частицу выстрела
 					sparkParticles.Emit (Random.Range (minSparkEmission, maxSparkEmission));
 				}
 				if (enableMuzzleflash == true) 
 				{
 					muzzleParticles.Emit (1);
-					//Light flash start
+
+					//Запускаем свет от выстрела
 					StartCoroutine (MuzzleFlashLight ());
 				}
 
-				//Spawn bullet from bullet spawnpoint
+				//Создаем пулю из её спавн-поинта
 				var bullet = (Transform)Instantiate (
 					bulletPrefab,
 					bulletSpawnPoint.transform.position,
 					bulletSpawnPoint.transform.rotation);
 
-				//Add damage
+				//Добавляем урон пуле
 				bullet.GetComponent<BulletScript>().bulletDamage = damage;
 
-				//Add velocity to the bullet
+				//Добавляем скорость и направление для пули
 				bullet.GetComponent<Rigidbody>().velocity = 
 					bullet.transform.forward * bulletForce;
 				
-				//Spawn casing prefab at spawnpoint
+				//Создаем гильзу в её спавн-поинте
 				Instantiate (casingPrefab, 
 					casingSpawnPoint.transform.position, 
 					casingSpawnPoint.transform.rotation);
 			}
 		}
 
-		//Walking when pressing down WASD keys
+		//Ходим на WASD
 		if (Input.GetKey (KeyCode.W) && !isRunning || 
 			Input.GetKey (KeyCode.A) && !isRunning || 
 			Input.GetKey (KeyCode.S) && !isRunning || 
@@ -182,7 +168,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			anim.SetBool ("Walk", false);
 		}
 
-		//Running when pressing down W and Left Shift key
+		//Беим, когда нажат W и Левый Shift
 		if ((Input.GetKey (KeyCode.W) && Input.GetKey (KeyCode.LeftShift))) 
 		{
 			isRunning = true;
@@ -190,7 +176,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			isRunning = false;
 		}
 		
-		//Run anim toggle
+		//Включаем анимацию бега
 		if (isRunning == true) 
 		{
 			anim.SetBool ("Run", true);
@@ -203,21 +189,23 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 
 	private IEnumerator AutoReload ()
 	{
+		//Немного ждем, чтобы анимация выстрела проигралась
 		yield return new WaitForSeconds(0.35f);
+
 		if (outOfAmmo == true) 
 		{
-			//Play diff anim if out of ammo
+			//Проигрываем анимацию перезарядки
 			anim.Play ("Reload Out Of Ammo", 0, 0f);
 
 			mainAudioSource.clip = reloadSoundOutOfAmmo;
 			mainAudioSource.Play ();
 		} 
-		//Restore ammo when reloading
+		//Восстанавливаем к-во патрон в обойме
 		currentAmmo = ammo;
 		outOfAmmo = false;
 	}
 
-	//Show light when shooting, then disable after set amount of time
+	//Показываем свет, когда стреляем, затем убираем его через некоторое время
 	private IEnumerator MuzzleFlashLight () {
 		
 		muzzleflashLight.enabled = true;
@@ -225,12 +213,10 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 		muzzleflashLight.enabled = false;
 	}
 
-	//Check current animation playing
+	//Проверяем анимации
 	private void AnimationCheck () {
-		//Check if reloading
-		//Check both animations
-		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("Reload Out Of Ammo") || 
-			anim.GetCurrentAnimatorStateInfo (0).IsName ("Reload Ammo Left")) 
+		//Проверяем если перезаряжаемся
+		if (anim.GetCurrentAnimatorStateInfo (0).IsName ("Reload Out Of Ammo")) 
 		{
 			isReloading = true;
 		} 

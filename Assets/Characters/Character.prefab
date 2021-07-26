@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  neededScore: 5
+  neededScore: 100
   scoreText: {fileID: 0}
 --- !u!1001 &637719083243930840
 PrefabInstance:
@@ -361,11 +361,24 @@ PrefabInstance:
       propertyPath: damage
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 4843898234141874924, guid: 28bd7b3518ca1d94997742d602ab28e4, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 5241507319764569294}
+    - target: {fileID: 4845565206265571510, guid: 28bd7b3518ca1d94997742d602ab28e4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 128.80002
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28bd7b3518ca1d94997742d602ab28e4, type: 3}
 --- !u!4 &5257284095736548090 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4624073286052875810, guid: 28bd7b3518ca1d94997742d602ab28e4, type: 3}
+  m_PrefabInstance: {fileID: 637719083243930840}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &5241507319764569294 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4639887402453911574, guid: 28bd7b3518ca1d94997742d602ab28e4, type: 3}
   m_PrefabInstance: {fileID: 637719083243930840}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6133120666560129525

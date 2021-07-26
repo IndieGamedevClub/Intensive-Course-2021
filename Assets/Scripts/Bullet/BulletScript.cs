@@ -4,86 +4,90 @@ using System.Collections;
 public class BulletScript : MonoBehaviour {
 
 	[Range(5, 100)]
-	[Tooltip("After how long time should the bullet prefab be destroyed?")]
+	[Tooltip("После какого времени пуля должна уничтожиться?")]
 	public float destroyAfter;
-	[Tooltip("If enabled the bullet destroys on impact")]
+	[Tooltip("Если включено, то уничтожает пулю после столкновения")]
 	public bool destroyOnImpact = false;
-	[Tooltip("Minimum time after impact that the bullet is destroyed")]
+	[Tooltip("Минимальное время после столковения когда пропадет пуля")]
 	public float minDestroyTime;
-	[Tooltip("Maximum time after impact that the bullet is destroyed")]
+	[Tooltip("Максимальное время после столковения когда пропадет пуля")]
 	public float maxDestroyTime;
-	[Tooltip("Damage of bullet")]
+
+	[HideInInspector]
 	public int bulletDamage;
 
-	[Header("Impact Effect Prefabs")]
-	public Transform [] metalImpactPrefabs;
-	public Transform[] bloodImpactPrefabs;
+	[Header("Префабы эффекта столкновения")]
+	public Transform metalImpactPrefab;
+	public Transform bloodImpactPrefab;
 
 	private void Start () 
 	{
-		//Start destroy timer
+		//Создаем таймер самоуничтожения
 		StartCoroutine (DestroyAfter ());
 	}
 
-	//If the bullet collides with anything
+	//Если пуля столкнулась с чем-нибудь
 	private void OnCollisionEnter (Collision collision) 
 	{
-		//If destroy on impact is false, start 
-		//coroutine with random destroy timer
+		//Если мы не уничтожаем пулю после столкновения, то запускаем таймер уничтожения
 		if (!destroyOnImpact) 
 		{
 			StartCoroutine (DestroyTimer ());
 		}
-		//Otherwise, destroy bullet on impact
+		//Иначе, уничтожаем пулю после столкновения
 		else 
 		{
 			Destroy (gameObject);
 		}
 
-		//If bullet collides with "Metal" tag
-		if (collision.transform.tag == "Metal") 
+		//Если пуля столкнулась с объектом с тегом "Enviroment"
+		if (collision.transform.tag == "Enviroment") 
 		{
-			//Instantiate random impact prefab from array
-			Instantiate (metalImpactPrefabs [Random.Range 
-				(0, metalImpactPrefabs.Length)], transform.position, 
+			//Создаем эффект попадания по объекту
+			Instantiate (metalImpactPrefab, transform.position, 
 				Quaternion.LookRotation (collision.contacts [0].normal));
-			//Destroy bullet object
+
+			//Уничтожаем пулю
 			Destroy(gameObject);
 		}
 
 		//If bullet collides with "Target" tag
+		//Если пуля столкнулась с объектом с тегом "Enemy"
 		if (collision.transform.tag == "Enemy") 
 		{
-			//Toggle "isHit" on target object
+			//Говорим врагу, что в него попали
 			collision.transform.gameObject.GetComponent
 				<ZombieController>().isHit = true;
 
+			//Говорим врагу, что он получил урон
 			collision.transform.gameObject.GetComponent
 				<ZombieController>().recivedDamage = bulletDamage;
 
-			Instantiate(bloodImpactPrefabs[Random.Range
-				(0, metalImpactPrefabs.Length)], transform.position,
+			//Создаем эффект крови
+			Instantiate(bloodImpactPrefab, transform.position,
 				Quaternion.LookRotation(collision.contacts[0].normal));
 
-			//Destroy bullet object
+			//Уничтожаем пулю
 			Destroy(gameObject);
 		}
 	}
 
 	private IEnumerator DestroyTimer () 
 	{
-		//Wait random time based on min and max values
+		//Ждем случайное время (от минимума до максимума)
 		yield return new WaitForSeconds
 			(Random.Range(minDestroyTime, maxDestroyTime));
-		//Destroy bullet object
+
+		//Уничтожаем пулю
 		Destroy(gameObject);
 	}
 
 	private IEnumerator DestroyAfter () 
 	{
-		//Wait for set amount of time
+		//Ждем фиксированное к-во времени
 		yield return new WaitForSeconds (destroyAfter);
-		//Destroy bullet object
-		Destroy (gameObject);
+
+		//Уничтожаем пулю
+		Destroy(gameObject);
 	}
 }

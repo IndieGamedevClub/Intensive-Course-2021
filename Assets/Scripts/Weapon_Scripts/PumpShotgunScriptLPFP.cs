@@ -7,15 +7,13 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 	//Animator component attached to weapon
 	Animator anim;
 
-	[Header("UI Weapon Name")]
-	[Tooltip("Name of the current weapon, shown in the game UI.")]
+	[Header("UI Имя оружия")]
 	public string weaponName;
 	private string storedWeaponName;
 
 	//Used for fire rate
 	private float lastFired;
-	[Header("Weapon Settings")]
-	[Tooltip("How fast the weapon fires, higher value means faster rate of fire.")]
+	[Header("Настройки оружия")]
 	public float fireRate;
 	public int damage;
 
@@ -25,23 +23,20 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 	private bool isShooting;
 	//Check if running
 	private bool isRunning;
-	//Check if walking
-	private bool isWalking;
 
 	//How much ammo is currently left
 	private int currentAmmo;
 	//Totalt amount of ammo
-	[Tooltip("How much ammo the weapon should have.")]
+	[Tooltip("Как много пуль есть в обойме")]
 	private int ammo = 5;
 	//Check if out of ammo
 	private bool outOfAmmo;
 
-	[Header("Bullet Settings")]
+	[Header("Настройки пуль")]
 	//Bullet
-	[Tooltip("How much force is applied to the bullet when shooting.")]
 	public float bulletForce = 400;
 
-	[Header("Muzzleflash Settings")]
+	[Header("Настройки частиц выстрела")]
 	public bool enableMuzzleFlash;
 	public ParticleSystem muzzleParticles;
 	public bool enableSparks;
@@ -49,7 +44,7 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 	public int minSparkEmission = 1;
 	public int maxSparkEmission = 7;
 
-	[Header("Muzzleflash Light Settings")]
+	[Header("Настройка света частиц выстрела")]
 	public Light muzzleFlashLight;
 	public float lightDuration = 0.02f;
 
@@ -59,16 +54,16 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 	//Audio source used for shoot sound
 	public AudioSource shootAudioSource;
 
-	[Header("UI Components")]
+	[Header("UI Компоненты")]
 	public Text currentWeaponText;
 	public Text currentAmmoText;
 	public Text totalAmmoText;
 
-	[Header("Prefabs")]
+	[Header("Префабы")]
 	public Transform bulletPrefab;
 	public Transform casingPrefab;
 
-	[Header("Spawnpoints")]
+	[Header("Вспомогательные точки спавна")]
 	//Array holding casing spawn points 
 	//(some weapons use more than one casing spawn)
 	public float casingDelayTimer;
@@ -77,6 +72,7 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 	//Bullet prefab spawn from this point
 	public Transform[] bulletSpawnPoint;
 
+	[Header("Аудио")]
 	public AudioClip shootSound;
 	public AudioClip takeOutSound;
 
@@ -116,7 +112,7 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 		if (currentAmmo == 0) 
 		{
 			//Show out of ammo text
-			currentWeaponText.text = "OUT OF AMMO";
+			currentWeaponText.text = "ПАТРОНЫ КОНЧИЛИСЬ";
 			//Toggle bool
 			outOfAmmo = true;
 			//Auto reload if true
