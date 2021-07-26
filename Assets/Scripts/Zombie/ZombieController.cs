@@ -122,9 +122,6 @@ public class ZombieController : MonoBehaviour
         enemy.enabled = false;
         animator.SetTrigger("Death");
 
-        //добавл€ем в счетчик убитых врагов
-        player.gameObject.GetComponent<ScoreController>().score++;
-
         yield return new WaitForSeconds(5f);
         StartCoroutine(Hide()); //пр€чем тело врага, чтобы оно не нагружало ѕ 
     }

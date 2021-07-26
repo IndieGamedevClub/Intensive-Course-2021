@@ -32,24 +32,6 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 	[Header("Настройки пуль")]
 	public float bulletForce = 400.0f;
 
-	[Header("Настройки частиц выстрела")]
-	public bool enableMuzzleflash = true;
-	public ParticleSystem muzzleParticles;
-	public bool enableSparks = true;
-	public ParticleSystem sparkParticles;
-	public int minSparkEmission = 1;
-	public int maxSparkEmission = 7;
-
-	[Header("Настройка света частиц выстрела")]
-	public Light muzzleflashLight;
-	public float lightDuration = 0.02f;
-
-	[Header("Audio Source")]
-	//Главный Audio Source
-	public AudioSource mainAudioSource;
-	//Audio source для выстрела
-	public AudioSource shootAudioSource;
-
 	[Header("UI Компоненты")]
 	public Text currentWeaponText;
 	public Text currentAmmoText;
@@ -62,17 +44,12 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 	public Transform casingSpawnPoint;
 	//Точка спавна пуль
 	public Transform bulletSpawnPoint;
-	
-	[Header("Аудио")]
-	public AudioClip shootSound;
-	public AudioClip reloadSoundOutOfAmmo;
 
 	private void Start () {
 
 		anim = GetComponent<Animator>(); //получаем компонент Animator
 		currentAmmo = ammo; //ставим к-во начальной обоймы
 
-		muzzleflashLight.enabled = false;
 		
 		//Сохраняем название оружия
 		storedWeaponName = weaponName;
@@ -80,9 +57,6 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 		
 		//Переводим в текст к-во патрон
 		totalAmmoText.text = ammo.ToString();
-
-		//Задаем звук стрельбы
-		shootAudioSource.clip = shootSound;
 	}
 
 	private void Update () {
@@ -118,24 +92,9 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 
 				//Убираем 1 патрон из обоймы
 				currentAmmo -= 1;
-
-				shootAudioSource.clip = shootSound;
-				shootAudioSource.Play ();
 				
 				anim.Play ("Fire", 0, 0f);
-				
-				if (enableSparks == true) 
-				{
-					//Создаем случайную частицу выстрела
-					sparkParticles.Emit (Random.Range (minSparkEmission, maxSparkEmission));
-				}
-				if (enableMuzzleflash == true) 
-				{
-					muzzleParticles.Emit (1);
-
-					//Запускаем свет от выстрела
-					StartCoroutine (MuzzleFlashLight ());
-				}
+			
 
 				//Создаем пулю из её спавн-поинта
 				var bullet = (Transform)Instantiate (
@@ -196,21 +155,10 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 		{
 			//Проигрываем анимацию перезарядки
 			anim.Play ("Reload Out Of Ammo", 0, 0f);
-
-			mainAudioSource.clip = reloadSoundOutOfAmmo;
-			mainAudioSource.Play ();
 		} 
 		//Восстанавливаем к-во патрон в обойме
 		currentAmmo = ammo;
 		outOfAmmo = false;
-	}
-
-	//Показываем свет, когда стреляем, затем убираем его через некоторое время
-	private IEnumerator MuzzleFlashLight () {
-		
-		muzzleflashLight.enabled = true;
-		yield return new WaitForSeconds (lightDuration);
-		muzzleflashLight.enabled = false;
 	}
 
 	//Проверяем анимации
