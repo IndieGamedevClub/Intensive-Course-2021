@@ -45,5 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombieType:
   - {fileID: 9113489387754631005, guid: ab3b816a431464242accea1f6860a5fc, type: 3}
-  timeForNextZombie: 2
-  canSummon: 1
+  - {fileID: 9113489387754631005, guid: 1e9990f4c09ce514ea55417098394958, type: 3}
+  - {fileID: 9113489387754631005, guid: a0d6ed03ecf7b3945b4925dc2b9bf094, type: 3}
+  timeForNextZombie: 7

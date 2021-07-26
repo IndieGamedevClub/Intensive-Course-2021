@@ -222,7 +222,7 @@ MonoBehaviour:
   isHit: 0
   recivedDamage: 0
   zombieHealth: 50
-  zombieDamage: 10
+  zombieDamage: 5
   hurtBoxes:
   - {fileID: 152859737}
   - {fileID: 1263802801}

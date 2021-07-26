@@ -14,7 +14,7 @@ public class ZombieSpawner : MonoBehaviour
 
     IEnumerator Summon()
     {
-        int i = Mathf.RoundToInt(Random.Range(0, zombieType.Length-1));
+        int i = Mathf.RoundToInt(Random.Range(0, zombieType.Length));
         Instantiate(zombieType[i], this.transform.position, Quaternion.identity);
 
         yield return new WaitForSeconds(timeForNextZombie);
