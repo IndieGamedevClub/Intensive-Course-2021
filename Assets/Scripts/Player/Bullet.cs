@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     private float timer = 0f;
     void Start()
     {
-        this.gameObject.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward*bulletSpeed, ForceMode.Impulse);
+        this.gameObject.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward*bulletSpeed, ForceMode.Impulse); //добавляем скорость пулям
     }
 
     // Update is called once per frame

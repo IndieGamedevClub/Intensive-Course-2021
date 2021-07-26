@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject bulletPrefab;
     public Transform bulletSocket;
     public float timeToNextBullet = 0.5f;
@@ -14,8 +13,6 @@ public class Shooting : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;

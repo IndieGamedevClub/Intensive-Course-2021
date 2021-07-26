@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public float lifeTime = 10f;
+    public float lifeTime = 10f; //Время жизни врага
     private float timer = 0f;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;

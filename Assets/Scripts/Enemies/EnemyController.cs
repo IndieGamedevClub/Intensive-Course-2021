@@ -5,7 +5,6 @@ using UnityEngine.SocialPlatforms;
 
 public class EnemyController : MonoBehaviour
 {
-    // Start is called before the first frame update
     public float timeToSpawn = 5f;
     public bool spawn = true;
     
@@ -24,15 +23,16 @@ public class EnemyController : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
         
         if (timer >= timeToSpawn && spawn)
         {
+            //Создаем случайную позицию для врага
             Vector3 randomPos = new Vector3(Random.Range(minXRange, maxXRange), Random.Range(minYRange, maxYRange),
                 Random.Range(minZRange, maxZRange));
+
             Instantiate(enemyPrefab, randomPos, Quaternion.identity);
             timer = 0f;
         }
