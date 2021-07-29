@@ -11427,7 +11427,6 @@ GameObject:
   - component: {fileID: 9197711901916646259}
   - component: {fileID: 9210579721339576753}
   - component: {fileID: 9210691939327268083}
-  - component: {fileID: 1637010831311395721}
   m_Layer: 8
   m_Name: arms_smg_04
   m_TagString: Untagged
@@ -11662,42 +11661,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &1637010831311395721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9147625777984888477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd38df9a0796d9842adfbe580ed6042e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: P-90
-  fireRate: 14
-  damage: 15
-  ammo: 56
-  bulletForce: 400
-  enableMuzzleflash: 1
-  muzzleParticles: {fileID: 8950057190379284015}
-  enableSparks: 1
-  sparkParticles: {fileID: 8950480784531711313}
-  minSparkEmission: 1
-  maxSparkEmission: 7
-  muzzleflashLight: {fileID: 9184946199532111535}
-  lightDuration: 0.02
-  mainAudioSource: {fileID: 9210579721339576753}
-  shootAudioSource: {fileID: 9210579721339576753}
-  currentWeaponText: {fileID: 9178767597034335841}
-  currentAmmoText: {fileID: 9178473768014784931}
-  totalAmmoText: {fileID: 9182444616926952605}
-  bulletPrefab: {fileID: 4879702113200764, guid: 5953171a59c27394e9ad5cbb564affa8, type: 3}
-  casingPrefab: {fileID: 4924048156253418, guid: b1995a53a949fac4db5722fc1df9efe4, type: 3}
-  casingSpawnPoint: {fileID: 9149559788210232183}
-  bulletSpawnPoint: {fileID: 9149120366543657487}
-  shootSound: {fileID: 8300000, guid: 38b450e2adcb6f542acc8c1d423bd8dc, type: 3}
-  reloadSoundOutOfAmmo: {fileID: 8300000, guid: 865a428069be2d44b971395902315f20, type: 3}
 --- !u!1 &9147649324347323251
 GameObject:
   m_ObjectHideFlags: 0

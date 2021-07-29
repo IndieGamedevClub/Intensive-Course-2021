@@ -157,7 +157,7 @@ namespace FPSControllerLPFP
         /// Moves the camera to the character, processes jumping and plays sounds every frame.
         private void Update()
         {
-            if(playerHealth <= 0)
+            /*if(playerHealth <= 0)
             {
                 loseUI.SetActive(true);
                 foreach(var arm in arms)
@@ -175,9 +175,9 @@ namespace FPSControllerLPFP
                 }
 
                 Destroy(this);
-            }
+            }*/
 
-            if(win)
+            /*if(win)
             {
                 winUI.SetActive(true);
 
@@ -214,7 +214,7 @@ namespace FPSControllerLPFP
                 }
 
                 Destroy(this);
-            }
+            }*/
 
             foreach (var arm in arms)
             {

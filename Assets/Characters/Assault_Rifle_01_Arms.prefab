@@ -6881,7 +6881,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4624318337184361792}
   - component: {fileID: 4715637043306188242}
-  - component: {fileID: 4735070220274668466}
   - component: {fileID: 4684000422648513224}
   - component: {fileID: 4684018688426692102}
   m_Layer: 8
@@ -6926,42 +6925,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4735070220274668466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4622773515782831802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd38df9a0796d9842adfbe580ed6042e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: AK-47
-  fireRate: 11.5
-  damage: 10
-  ammo: 31
-  bulletForce: 400
-  enableMuzzleflash: 1
-  muzzleParticles: {fileID: 4819424041323159056}
-  enableSparks: 1
-  sparkParticles: {fileID: 4819138094048085462}
-  minSparkEmission: 1
-  maxSparkEmission: 7
-  muzzleflashLight: {fileID: 4729395985777272956}
-  lightDuration: 0.02
-  mainAudioSource: {fileID: 4684018688426692102}
-  shootAudioSource: {fileID: 4684000422648513224}
-  currentWeaponText: {fileID: 4735119048693600692}
-  currentAmmoText: {fileID: 4734941580374706988}
-  totalAmmoText: {fileID: 4735177099205924536}
-  bulletPrefab: {fileID: 4879702113200764, guid: 5953171a59c27394e9ad5cbb564affa8, type: 3}
-  casingPrefab: {fileID: 4420745226056240, guid: 5b9beeec104f3134b99be297e0049190, type: 3}
-  casingSpawnPoint: {fileID: 4624135496526685472}
-  bulletSpawnPoint: {fileID: 4625777162474342498}
-  shootSound: {fileID: 8300000, guid: 38b450e2adcb6f542acc8c1d423bd8dc, type: 3}
-  reloadSoundOutOfAmmo: {fileID: 8300000, guid: bf2385392019f434585cebf843b9ab4e, type: 3}
 --- !u!82 &4684000422648513224
 AudioSource:
   m_ObjectHideFlags: 0

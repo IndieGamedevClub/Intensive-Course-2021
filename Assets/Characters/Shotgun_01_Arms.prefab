@@ -13010,7 +13010,6 @@ GameObject:
   - component: {fileID: 3213372623507020616}
   - component: {fileID: 3238066905051192516}
   - component: {fileID: 3236369159356737638}
-  - component: {fileID: 3196847035172809124}
   m_Layer: 8
   m_Name: arms_shotgun_01
   m_TagString: Untagged
@@ -13245,55 +13244,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &3196847035172809124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3301089276878997332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 454d9b69473a2d248b0dc828be5c49ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: Shotgun
-  fireRate: 0.85
-  damage: 5
-  ammo: 8
-  bulletForce: 400
-  enableMuzzleFlash: 1
-  muzzleParticles: {fileID: 3389212670693023974}
-  enableSparks: 1
-  sparkParticles: {fileID: 3389576826372923970}
-  minSparkEmission: 75
-  maxSparkEmission: 125
-  muzzleFlashLight: {fileID: 3190894298215195752}
-  lightDuration: 0.02
-  mainAudioSource: {fileID: 3236369159356737638}
-  shootAudioSource: {fileID: 3238066905051192516}
-  currentWeaponText: {fileID: 3193803368604396162}
-  currentAmmoText: {fileID: 3196739865263118532}
-  totalAmmoText: {fileID: 3196935944500227900}
-  bulletPrefab: {fileID: 4879702113200764, guid: 5953171a59c27394e9ad5cbb564affa8, type: 3}
-  casingPrefab: {fileID: 4599815396279600, guid: 58ad70332ff860e439314b337c4609bc, type: 3}
-  casingDelayTimer: 0.1
-  casingSpawnPoint: {fileID: 3297809626768005870}
-  bulletSpawnPoint:
-  - {fileID: 3303998921163255998}
-  - {fileID: 3298148582570212596}
-  - {fileID: 3304250535887829864}
-  - {fileID: 3304282461190715136}
-  - {fileID: 3298221619164219458}
-  - {fileID: 3298173938380101308}
-  - {fileID: 3304287872318594866}
-  - {fileID: 3298199206554582666}
-  - {fileID: 3298191588722312298}
-  useRandomBulletSpawnRotation: 1
-  bulletSpawnPointMinRotation: -5
-  bulletSpawnPointMaxRotation: 5
-  shootSound: {fileID: 8300000, guid: 38b450e2adcb6f542acc8c1d423bd8dc, type: 3}
-  takeOutSound: {fileID: 8300000, guid: 2ae41e984ff1f3e4a840a1a46b6a8816, type: 3}
 --- !u!1 &3301105187418131040
 GameObject:
   m_ObjectHideFlags: 0
