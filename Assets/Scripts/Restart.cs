@@ -8,6 +8,7 @@ public class Restart : MonoBehaviour
 {
     public void RestartLevel()
     {
+        Debug.Log("PRESSED");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); //Загружаем текущую сцену
     }
 }
